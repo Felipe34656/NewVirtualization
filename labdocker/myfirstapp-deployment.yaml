@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myfirstapp
+  labels:
+    app: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: web
+        image: us-west1-docker.pkg.dev/container05-06/repolabk8s/myfirstapp:2.0
+        ports:
+        - name: http
+          containerPort: 80
+      - name: redis
+        image: redis
+        env:
+        - name: MESSAGE
+          value: Utilizando o Azure Kubernetes Service (AKS)
+        ports:
+        - name: redis
+          containerPort: 6379
